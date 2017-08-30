@@ -5,6 +5,8 @@ import seller from 'components/seller/seller';
 import ratings from 'components/ratings/ratings';
 import VueRouter from 'vue-router';
 
+import 'common/stylus/index';
+
 Vue.use(VueRouter);
 let app = Vue.extend(App);
 let router = new VueRouter({
