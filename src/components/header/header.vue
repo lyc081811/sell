@@ -1,11 +1,13 @@
 <template>
-
+  <div class="header">
+    12365465465465
+  </div>
 </template>
 
-<script type="stylus" rel="sty">
-
+<script>
+export default {};
 </script>
 
-<style>
+<style  type="stylus" rel="stylesheet/stylus">
 
 </style>

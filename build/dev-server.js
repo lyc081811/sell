@@ -14,7 +14,7 @@ var port = process.env.PORT || config.dev.port
 var proxyTable = config.dev.proxyTable
 
 var app = express()
-var appData = require('../data.json')
+var appData = require('../data.json');
 var goods = appData.goods;
 var ratings = appData.ratings;
 var seller = appData.seller;
@@ -27,7 +27,7 @@ apiRoutes.get('/seller', function (req, res) {
     data: seller
   });
 });
-apiRoutes.get('/ratings', function (req, res) {
+apiRoutes.get('/rating', function (req, res) {
   res.json({
     errno: 0,
     data: ratings
