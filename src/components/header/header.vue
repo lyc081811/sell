@@ -39,7 +39,7 @@
   @import "../../common/stylus/mixin";
   .header
     color #fff
-    background-color #999
+    background-color #f4f4f4
     .content-wrapper
       padding 24px 12px 18px 24px
       font-size 0
