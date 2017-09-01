@@ -22,7 +22,11 @@
         <i class="icon-keyboard_arrow_right"></i>
       </div>
     </div>
-    <div class="bullentin-wrapper"></div>
+    <div class="bullentin-wrapper">
+      <span class="bulletin-title"></span>
+      <span class="buletin-text">{{seller.bulletin}}</span>
+      <i class="icon-keyboard_arrow_right"></i>
+    </div>
   </div>
 </template>
 
@@ -99,6 +103,7 @@
             font-size 10px
       .support-count
         position absolute
+        font-size 10px
         right 12px
         bottom 14px
         padding 0 8px
@@ -107,11 +112,14 @@
         border-radius 14px
         background rgba(0,0,0,0.2)
         text-align center
-        .count
-          vertical-align top
-          font-size 10px
         .icon-keyboard_arrow_right
           margin-left 2px
           line-height 24px
-          font-size 10px
+    .bullentin-wrapper
+      height 28px
+      line-height 28px
+      padding 0 22px 0 12px
+      white-space wrap
+      overflow hidden
+      text-overflow ellipsis
 </style>
