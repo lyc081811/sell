@@ -16,6 +16,11 @@
           {{payDesc}}
         </div>
       </div>
+      <div class="ball-wrapper">
+        <div class="ball" transition="drop" v-for="ball in balls" v-show="ball.show">
+          <div class="inner inner-hock"></div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -34,14 +39,21 @@
       selectFoods: {
         type: Array,
         default() {
-          return [
-            {
-              price: 10,
-              count: 19
-            }
-          ];
+          return [];
         }
       }
+    },
+    data() {
+      return {
+        balls: [
+          {show: false},
+          {show: false},
+          {show: false},
+          {show: false},
+          {show: false}
+        ],
+        dropBalls: []
+      };
     },
     computed: {
       totalPrice() {
@@ -73,6 +85,59 @@
           return 'not-enough';
         } else {
           return 'enough';
+        }
+      }
+
+    },
+    methods: {
+      drop(el) {
+        for (let i = 0; i < this.balls.length; i++) {
+          let ball = this.balls[i];
+          if (!ball.show) {
+            ball.show = true;
+            ball.el = el;
+            this.dropBalls.push(ball);
+            return;
+          }
+        }
+      }
+    },
+    transitions: {
+      drop: {
+        beforeEnter(el) {
+          let count = this.balls.length;
+          while (count--) {
+            let ball = this.balls[count];
+            if (ball.show) {
+              let rect = ball.el.getBoundingClientRect();
+              let x = rect.left - 32;
+              let y = -(window.innerHeight - rect.top - 32);
+              el.style.display = '';
+              el.style.webkitTransform = 'translate3d(0,' + y + 'px,0)';
+              el.style.transform = 'translate3d(0,' + y + 'px,0)';
+              let inner = el.getElementsByClassName('inner-hock')[0];
+              inner.style.webkitTransform = 'translate3d(' + x + 'px,0,0)';
+              inner.style.transform = 'translate3d(' + x + 'px,0,0)';
+            }
+          }
+        },
+        enter(el) {
+          /* eslint-display no-unused-vars */
+          // let rf = el.offsetHeight;
+          this.$nextTick(() => {
+              el.style.webkitTransform = 'translate3d(0,0,0)';
+              el.style.transform = 'translate3d(0,0,0)';
+              let inner = el.getElementsByClassName('inner-hock')[0];
+              inner.style.webkitTransform = 'translate3d(0,0,0)';
+              inner.style.transform = 'translate3d(0,0,0)';
+          });
+        },
+        afterEnter(el) {
+          let ball = this.dropBalls.shift();
+          if (ball) {
+            ball.show = false;
+            el.style.display = 'none';
+          }
         }
       }
     }
@@ -171,5 +236,22 @@
           &.enough
             background #00b43c
             color #fff
-          
+      .ball-wrapper
+        .ball
+          position fixed
+          left 32px
+          bottom 22px
+          z-index 200
+          &.drop-transition
+            transition all .4s cubic-bezier(.46,-0.29,.75.42)
+            .inner
+              width 16px
+              height 16px
+              border-radius 50%
+              background-color rgb(0,160,220)
+              transition all .4s linear
+              
+
+
 </style>
+
