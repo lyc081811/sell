@@ -19,7 +19,7 @@ var goods = appData.goods;
 var ratings = appData.ratings;
 var seller = appData.seller;
 
-var apiRoutes = express.Router();
+var apiRoutes = express.Router(); 
 
 apiRoutes.get('/seller', function (req, res) {
   res.json({

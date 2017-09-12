@@ -22,7 +22,6 @@ export default {
       data = data.body;
       if (data.errno === 0) {
         this.seller = data.data;
-        // console.log(this.seller);
       }
     });
   },
