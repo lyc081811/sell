@@ -15,7 +15,7 @@
         <li v-for="item in goods" class="food-list food-list-hook">
           <h1 class="title">{{item.name}}</h1>
           <ul class="">
-            <li v-for="food in item.foods" class="food-item border-1px">
+            <li @click="selectFood(food,$event)" v-for="food in item.foods" class="food-item border-1px">
               <div class="icon">
                 <img :src="food.icon" width="57" height="57">
               </div>
@@ -31,7 +31,7 @@
                   <span class="old" v-show="food.oldPrice">{{food.oldPrice}}</span>
                 </div>
                 <div class="cartcontrol-wrapper">
-                  <cartcontrol :food="food"></cartcontrol>
+                  <cartcontrol :food="selectFood"></cartcontrol>
                 </div>
               </div>
             </li>
@@ -40,6 +40,7 @@
       </ul>
     </div>
     <shopcart v-ref:shopcart :select-foods="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shopcart>
+    <food :selectFood="selectFood"></food>  
   </div>
 </template>
 
@@ -47,9 +48,13 @@
 import BScroll from 'better-scroll';
 import shopcart from 'components/shopcart/shopcart';
 import cartcontrol from 'components/cartcontrol/cartcontrol';
+import food from 'components/food/food';
   export default {
     props: {
       seller: {
+        type: Object
+      },
+      selectFood: {
         type: Object
       }
     },
@@ -132,11 +137,18 @@ import cartcontrol from 'components/cartcontrol/cartcontrol';
         this.$nextTick(() => {
           this.$refs.shopcart.drop(target);
         });
+      },
+      selectFood(food, event) {
+        if (!event._constructed) {
+          return;
+        }
+        this.selectFood = food;
       }
     },
     components: {
       shopcart,
-      cartcontrol
+      cartcontrol,
+      food
     },
     events: {
       'cart.add'(target) {
